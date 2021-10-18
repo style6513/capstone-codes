@@ -10,7 +10,7 @@ const NavbarComponent = ({ logout }) => {
     const loggedInNav = () => (
         <>
             <Nav.Link onClick={logout}>
-                <Link to="/logout">
+                <Link to="/login">
                     Logout
                 </Link>
             </Nav.Link>

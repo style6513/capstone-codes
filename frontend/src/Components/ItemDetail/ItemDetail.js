@@ -58,19 +58,39 @@ const ItemDetail = props => {
                 <p>Name: {item?.name}</p>
                 <p>Description: {item?.description}</p>
                 <p>Price: ${item?.price}</p>
-                {errors.length > 0 ? errors.map(e => <div>{e}</div>) : null}
+                <p>Created_by: {item?.created_by}</p>
                 {currentUser.username === item?.created_by ?
                     (
-                        <>
-                            <button onClick={handleDelete}>X</button>
-                            <form onSubmit={handleSubmit}>
-                                <input onChange={handleChange} id="name" name="name" value={input.name} />
-                                <input onChange={handleChange} id="description" name="description" value={input.description} />
-                                <input onChange={handleChange} id="price" name="price" value={input.price} />
-                                <input type="submit" value="Edit" />
-                            </form>
-                        </>
+                        <button onClick={handleDelete}>Delete</button>
                     ) : null
+                }
+
+
+                {/* {errors.length > 0 ? errors.map(e => <div>{e}</div>) : null} */}
+                {currentUser.username === item?.created_by ?
+                    (<div className='wrapper'>
+                        <div className='cardcenter'>
+                            <form onSubmit={handleSubmit}>
+                                <h2>Editor</h2>
+                                <label htmlFor="name">Name:</label>
+                                <br/>
+                                <input onChange={handleChange} id="name" name="name" value={input.name} />
+                                <br />
+                                <label htmlFor="description">Description:</label>
+                                <br/>
+                                <input onChange={handleChange} id="description" name="description" value={input.description} />
+                                <br />
+                                <label htmlFor="price">Price:</label>
+                                <br/>
+                                <input onChange={handleChange} id="price" name="price" value={input.price} />
+                                <br />
+                                <input type="submit" value="Edit" />
+                                <br />
+                                <button onClick={history.goBack}>Back</button>
+                            </form>
+                        </div>
+                    </div>
+                    ) : <button onClick={history.goBack}>Back</button>
                 }
             </div>
 
