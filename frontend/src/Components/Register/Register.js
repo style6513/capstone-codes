@@ -45,11 +45,6 @@ const RegisterPage = ({ signup }) => {
                     placeholder="password"
                 />
                 <button>submit</button>
-                {errors.length > 0 && errors.map(e => (
-                    <div>
-                        {e}
-                    </div>
-                ))}
             </form>
         </>
 
