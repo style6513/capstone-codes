@@ -4,20 +4,21 @@ import './App.css';
 import jwt from "jsonwebtoken";
 import UserContext from "./UserContext";
 import Routes from "./Components/Routes/Routes";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, useHistory } from "react-router-dom";
 import useLocalStorage from "./hooks/useLocalStorage";
 import NavbarComponent from "./Components/NavBar/NavBar";
 
 function App() {
-  const [currentUser, setCurrentUser] = React.useState(null);
-  const [infoLoaded, setInfoLoaded] = React.useState(false);
-  const [token, setToken] = React.useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [infoLoaded, setInfoLoaded] = useState(false);
+  const [token, setToken] = useState(null);
   const [localStorage, setLocalStorageToken] = useLocalStorage("token");
 
   
 
   useEffect(() => {
     console.log("App useEffect currenUser=", currentUser, "token=", token);
+
     const getCurrentUser = async () => {
       if (token) {
         try {

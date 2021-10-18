@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { Modal,Button } from 'react-bootstrap'
+import ItemDetail from "../ItemDetail/ItemDetail";
 import Api from "../../Api";
 import '../../../src/App.css'
 
 const HomePage = props => {
-    const [codes, setCodes] = useState(null);
+    const [codes, setCodes] = useState();
+
     useEffect(() => {
         const fetchCodes = async () => {
             try {
@@ -26,18 +29,18 @@ const HomePage = props => {
             </div>
 
             <div className="container">
-                    <div className="wrapper">
-                        {codes && codes.map(item =>
-                            <div className="card red" key = { item.id } >
-                            <p>{item.name}</p>
-                            <p>{item.description}</p>
-                            <p>${item.price}</p>
+                <div className="wrapper">
+                    {codes && codes.map(item =>
+                        <div className="card red" key={item.id} >
+                            <p><span className='span'>Name: </span>{item.name}</p>
+                            <p><span className='span'>Description: </span>{item.description}</p>
+                            <p><span className='span'>Price: </span>${item.price}</p>
+                            <p><span className='span'>Created_by: </span>{item.created_by}</p>
                             <Link to={`/codes/${item.id}`}>Details</Link>
                         </div>
                     )}
-                
+                </div>
             </div>
-        </div>
         </div >
     )
 };

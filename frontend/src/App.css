@@ -43,6 +43,10 @@
   text-align: center;
 }
 
+.card span{
+  color: hsl(234, 12%, 34%);
+}
+
 .card p {
   color: var(--varyDarkBlue);
 }
@@ -51,8 +55,16 @@
   border-radius: 5px;
   box-shadow: 0px 30px 40px -20px var(--grayishBlue);
   padding: 30px;
-  margin: 20px;  
+  margin: 20px;
 }
+
+.cardcenter{
+    border-radius: 5px;
+    box-shadow: 0px 30px 40px -20px var(--grayishBlue);
+    justify-content: center;
+    margin: 0 auto;
+}
+
 .cyan {
   border-top: 3px solid var(--cyan);
 }
@@ -85,6 +97,7 @@ h1 {
       overflow: hidden;
       position: relative;
       cursor: pointer;
+      justify-content: center;
   }
 }
 
