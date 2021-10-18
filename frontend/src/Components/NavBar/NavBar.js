@@ -13,14 +13,10 @@ const NavbarComponent = ({ logout }) => {
             <Container>
                 <Navbar.Brand href="/codes">App Market</Navbar.Brand>
                 <Nav className="me-auto">
-                    <Nav.Link to="#">Mypage</Nav.Link>
-                    <Nav.Link to="#">Market</Nav.Link>
-                    <Nav.Link to="#">Community</Nav.Link>
-
-
                     <Nav.Link to="#">Login</Nav.Link>
                     <Nav.Link to="#">Register</Nav.Link>
-
+                    <Nav.Link to="#">Mypage</Nav.Link>
+                    <Nav.Link to="#">Community</Nav.Link>
                 </Nav>
             </Container>
         </Navbar>
