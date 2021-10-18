@@ -1,12 +1,12 @@
-import React, { useContext } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { useHistory , Link } from "react-router-dom";
 import UserContext from "../../UserContext";
+
 const LoginPage = ({ login }) => {
-    const [formData, setFormData] = React.useState({
+    const [formData, setFormData] = useState({
         username: "",
         password: ""
     });
-    const [errors, setErrors] = React.useState([]);
     const history = useHistory()
     const { setCurrentUser } = useContext(UserContext)
     const handleChange = e => {
@@ -16,13 +16,12 @@ const LoginPage = ({ login }) => {
 
     const handleSubmit = async e => {
         e.preventDefault();
-        setErrors([])
         const res = await login(formData);
         if(res.success) {
             setCurrentUser(formData.username)
             history.push(`/codes`);
         } else {
-            setErrors(res.errors)
+            console.log(e)
         }
     }
     console.log(formData)
@@ -31,14 +30,8 @@ const LoginPage = ({ login }) => {
             login
             <input onChange={handleChange} name="username" value={formData.username} />
             <input onChange={handleChange} name="password" type="password" value={formData.password} />
-            {errors.length > 0 ? errors.map(e => {
-                return (
-                    <div>
-                        {e}
-                    </div>
-                )
-            }) : null}
             <button>submit</button>
+            <Link to='/register'>Register</Link>
         </form>
     )
 }
