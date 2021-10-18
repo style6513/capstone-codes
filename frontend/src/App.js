@@ -12,11 +12,18 @@ function App() {
   const [token, setToken] = React.useState(null);
   const [localStorage, setLocalStorageToken] = useLocalStorage("token");
 
+  console.debug(
+    "App infoLoaded=", infoLoaded,
+    "token=", token,
+
+  )
   React.useEffect(() => {
+    console.debug("App useEffect currenUser=", currentUser, "token=", token);
     const getCurrentUser = async () => {
       if(token) {
         try {
-          const { username } = jwt.decode(token);
+          console.log(token);
+          
           Api.token = token;
           setLocalStorageToken(token);
           let currentUser = await Api.getUser(username);
@@ -25,7 +32,6 @@ function App() {
         catch(e) {
           console.error(e);
           setCurrentUser(null);
-          setInfoLoaded(true);
         }
       }
       setInfoLoaded(true)

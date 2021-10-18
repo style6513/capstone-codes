@@ -1,13 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const {  ensureCorrectUserOrAdmin } = require("../middleware/auth");
+const {  ensureCorrectUserOrAdmin, ensureLoggedIn } = require("../middleware/auth");
 const db = require("../db/db");
 const { NotFoundError, BadRequestError } = require("../ExpressError");
 const sqlForPartialUpdate = require("../helpers/sqlForPartialUpdate");
 
 // GET codes/
 // returns => [ { codeid, codename, description, }, { } ]
-router.get("/",  async (req, res, next) => {
+router.get("/", ensureLoggedIn ,async (req, res, next) => {
     try {
         const codes = await db.query(`SELECT * FROM codes`);
         return res.json({ codes : codes.rows });
@@ -18,7 +18,7 @@ router.get("/",  async (req, res, next) => {
 // GET /codes/:id
 // return => { id, name, description, price, image }
 // we serialize the input so that we prevent SQL injection
-router.get("/:id",  async (req, res, next) => {
+router.get("/:id", ensureLoggedIn, async (req, res, next) => {
     try {
         const code = await db.query(`SELECT * FROM codes WHERE id = $1`, [req.params.id]);
         if(!code.rows.length) {
@@ -33,7 +33,7 @@ router.get("/:id",  async (req, res, next) => {
 // POST /codes/:username
 // requires => { name, description, price, image  (optional), created_by }
 // returns => { name, description, price, image, id, created_by }
-router.post("/:username",  async (req, res, next) => {
+router.post("/:username", ensureCorrectUserOrAdmin, async (req, res, next) => {
     try {
         const { name, description, price, image } = req.body;
         const results = await db.query(
@@ -51,7 +51,7 @@ router.post("/:username",  async (req, res, next) => {
 // PUT /codes/:id/:username
 // authorization required : Same as :username or admin
 // returns => { ...updatedCode }
-router.put("/:id/:username",  async (req, res, next) => {
+router.put("/:id/:username", ensureCorrectUserOrAdmin, async (req, res, next) => {
     try {
         const data = req.body;
         const { setCols, values } = sqlForPartialUpdate(data, {
@@ -78,7 +78,7 @@ router.put("/:id/:username",  async (req, res, next) => {
 // DELETE /codes/:id/:username
 // authorization required :  same as : username of admin
 // returns => { deleted : id }
-router.delete("/:id/:username",  async (req, res, next) => {
+router.delete("/:id/:username", ensureCorrectUserOrAdmin, async (req, res, next) => {
     try {
         const { id, username} = req.params
         const x = await db.query(`DELETE FROM codes WHERE id = $1 AND created_by = $2 returning id`, [id, username]);
@@ -88,5 +88,23 @@ router.delete("/:id/:username",  async (req, res, next) => {
         return next(e);
     }
 });
+
+// POST /codes/:id/:username/like
+// returns => { id, created_by, name, description, price, image, likes : [ ] } const likes = code.likes.length;
+router.post("/:id/:username/like", ensureCorrectUserOrAdmin, async (req, res, next) => {
+    try {
+        const { id, username } = req.params;
+        const like = await db.query(`INSERT INTO likes (code_id, liked_by) VALUES ($1, $2)`, [id, username]);
+        const codeResults = await db.query(
+            `SELECT * FROM codes WHERE id = $1`, [id]
+        );
+        const likeResults = await db.query(`select * from likes where code_id = $1`, [id]);
+        codeResults.rows[0].likes = likeResults.rows;
+        return res.json({ code : codeResults.rows[0] });
+    } catch(e) {
+        return next(e);
+    }
+});
+
 
 module.exports = router;

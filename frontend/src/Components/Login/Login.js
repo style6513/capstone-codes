@@ -22,7 +22,7 @@ const LoginPage = ({ login }) => {
             setErrors(res.errors)
         }
     }
-
+    console.log(formData)
     return (
         <form onSubmit={handleSubmit}>
             login

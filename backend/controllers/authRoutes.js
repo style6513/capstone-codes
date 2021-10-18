@@ -16,7 +16,7 @@ function createToken(user) {
 }
 
 // this is login
-// get /auth/token { username, password } => { token }
+// post /auth/token { username, password } => { token }
 // Returns JWT token which can be used to authenticate further requests.
 // Authorization rqeuired : none
 router.post("/token", async (req, res, next) => {

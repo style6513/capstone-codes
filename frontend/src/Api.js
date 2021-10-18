@@ -10,12 +10,13 @@ const BASE_URL = "http://localhost:9000";
  */
 class Api {
     static token;
-    static async request(endpoint, data = {}, method = "get") {
+    
+    static async request(endpoint, data = {}, method = "GET") {
         console.debug("API call:", endpoint, data, method);
 
         const url = `${BASE_URL}/${endpoint}`;
         const headers = { Authorization: `Bearer ${Api.token}` }
-        const params = (method === "get") ? data : {}
+        const params = (method === "GET") ? data : {}
 
         try {
             return (await axios({ url, method, data, params, headers })).data;
@@ -26,6 +27,8 @@ class Api {
             throw Array.isArray(message) ? message : [message]
         }
     }
+
+
     static async register(data) {
         const res = await this.request("auth/register", data, "POST");
         return res.token;
@@ -39,7 +42,34 @@ class Api {
     static async getUser(username) {
         const res = await this.request("users/" + username);
         return res.user;
+    };
+
+    // CODES ROUTES
+    static async getAllCodes() {
+        const res = await this.request(`codes/`);
+        return res.codes;
     }
+    static async getCodeById(id) {
+        const res = await this.request(`codes/${id}`);
+        return res.code;
+    }
+    static async createCode(username, data) {
+        const res = await this.request(`codes/${username}`, data, "POST");
+        return res.code;
+    }
+    static async updateCode(username, data, id) {
+        const res = await this.request(`codes/${id}/${username}`, data, "PUT");
+        return res.code;
+    }
+    static async deleteCodeById(id, username) {
+        const res = await this.request(`codes/${id}/${username}`, {}, "DELETE");
+        return res.deleted;
+    }
+    static async postLike(id, username) {
+        const res = await this.request(`codes/${id}/${username}/like`, {}, "POST"); // buttonOnclick={() => postLike(postId, currentUser.username)}
+        return res.code;
+    }
+    
 }
 
 export default Api;
