@@ -60,14 +60,14 @@ const ProfilePage = () => {
                                 <form onSubmit={handleSubmit}>
                                     <label htmlFor="name">Name:</label>
                                     <input name="name" value={formData.name} onChange={handleChange} />
-                                    <br/>
+                                    <br />
                                     <label htmlFor="description">Description:</label>
                                     <input name="description" value={formData.description} onChange={handleChange} />
-                                    <br/>
+                                    <br />
                                     <label htmlFor="price">Price:</label>
                                     <input name="price" value={formData.price} onChange={handleChange} />
-                                    <br/>
-                                    <input type="submit" value="Create"/>
+                                    <br />
+                                    <input type="submit" value="Create" />
                                 </form>
                                 <button onClick={history.goBack}>back</button>
                             </div>
