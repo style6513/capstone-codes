@@ -20,16 +20,15 @@ const Routes = ({ login, signup }) => {
             <Route exact path="/register">
                 <RegisterPage signup={signup} />
             </Route>
-            <Route exact path="/codes">
+            <PrivateRoute exact path="/codes">
                 <HomePage />
-            </Route>
-            <Route exact path="/profile/:username">
+            </PrivateRoute>
+            <PrivateRoute exact path="/profile/:username">
                 <ProfilePage />
-            </Route>
-            <Route exact path="/codes/:id">
+            </PrivateRoute>
+            <PrivateRoute exact path="/codes/:id">
                 <ItemDetail />
-            </Route>
-            <Redirect to="/" />
+            </PrivateRoute>
         </Switch>
     )
 }

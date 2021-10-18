@@ -14,7 +14,7 @@ class User {
      * */
     static async authenticate(username, password) {
         const results = await db.query(
-            `SELECT username, password, email, is_admin AS "isAdmin" FROM users WHERE username = $1`,
+            `SELECT username, password, email, is_admin AS "isAdmin" FROM users WHERE username =$1`,
             [username]
         );
         const user = results.rows[0];
@@ -46,13 +46,13 @@ class User {
         if (duplicateCheck.rows[0]) {
             throw new BadRequestError(`Duplicate username : ${username}`);
         }
-        
+
         const hashedPW = await bcrypt.hash(password, BCRYPT_WORK_FACTOR);
         const results = await db.query(
             `INSERT INTO users (username, email, password, is_admin)
-          VALUES ($1, $2, $3, $4)
-          RETURNING username, email, is_admin AS "isAdmin"`,
-        [username, email, hashedPW, isAdmin]
+            VALUES ($1, $2, $3, $4)
+            RETURNING username, email, is_admin AS "isAdmin"`,
+            [username, email, hashedPW, isAdmin]
         );
         const user = results.rows[0];
         return user;
@@ -66,10 +66,10 @@ class User {
     static async get(username) {
         const userResults = await db.query(
             `SELECT 
-        username, 
-        email, 
-        is_admin AS "isAdmin"
-          FROM users WHERE username = $1`,
+            username, 
+            email, 
+            is_admin AS "isAdmin"
+            FROM users WHERE username = $1`,
             [username]
         );
         const user = userResults.rows[0];

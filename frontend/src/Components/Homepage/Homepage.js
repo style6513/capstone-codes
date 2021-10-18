@@ -19,14 +19,14 @@ const HomePage = props => {
     return (
         <div>
             <div className="centerlize">
-                <div className="wrapper">
+                <div className="wrapperlist">
                     <p>Sell Your App</p>
                     <p>Show Yours</p>
                 </div>
             </div>
 
             <div className="container">
-                    <div className="wrapperlist">
+                    <div className="wrapper">
                         {codes && codes.map(item =>
                             <div className="card red" key = { item.id } >
                             <p>{item.name}</p>

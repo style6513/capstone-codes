@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
+import UserContext from "../../UserContext";
 const LoginPage = ({ login }) => {
     const [formData, setFormData] = React.useState({
         username: "",
@@ -7,6 +8,7 @@ const LoginPage = ({ login }) => {
     });
     const [errors, setErrors] = React.useState([]);
     const history = useHistory()
+    const { setCurrentUser } = useContext(UserContext)
     const handleChange = e => {
         const { name, value } = e.target;
         setFormData(data => ({ ...data, [name]: value }))
@@ -17,6 +19,7 @@ const LoginPage = ({ login }) => {
         setErrors([])
         const res = await login(formData);
         if(res.success) {
+            setCurrentUser(formData.username)
             history.push(`/codes`);
         } else {
             setErrors(res.errors)

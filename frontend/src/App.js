@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import Api from "./Api";
 import './App.css';
 import jwt from "jsonwebtoken";
@@ -14,25 +14,22 @@ function App() {
   const [token, setToken] = React.useState(null);
   const [localStorage, setLocalStorageToken] = useLocalStorage("token");
 
-  console.debug(
-    "App infoLoaded=", infoLoaded,
-    "token=", token,
+  
 
-  )
-  React.useEffect(() => {
-    console.debug("App useEffect currenUser=", currentUser, "token=", token);
+  useEffect(() => {
+    console.log("App useEffect currenUser=", currentUser, "token=", token);
     const getCurrentUser = async () => {
-      if(token) {
+      if (token) {
         try {
           console.log(token);
-          console.log(jwt.decode(token))
+          console.log("decoded toekn=", jwt.decode(token))
           Api.token = token;
           setLocalStorageToken(token);
           const { username } = jwt.decode(token);
           let currentUser = await Api.getUser(username);
           setCurrentUser(currentUser)
         }
-        catch(e) {
+        catch (e) {
           console.error(e);
           setCurrentUser(null);
         }
@@ -40,17 +37,17 @@ function App() {
       setInfoLoaded(true)
     }
     setInfoLoaded(false);
-    getCurrentUser(); 
+    getCurrentUser();
   }, [token]);
 
   const signup = async (signupData) => {
     try {
       const token = await Api.register(signupData);
       setToken(token);
-      return { success : true };
-    } catch(e) {
+      return { success: true };
+    } catch (e) {
       console.error(e);
-      return { success : false, errors : e };
+      return { success: false, errors: e };
     }
   }
 
@@ -58,21 +55,31 @@ function App() {
     try {
       const token = await Api.login(loginData);
       setToken(token);
-      return { success : true };
-    } catch(e) {
+      return { success: true };
+    } catch (e) {
       console.error(e);
-      return { success : false, errors : e }
+      return { success: false, errors: e }
     }
-  } 
-  console.debug("currentUser=", currentUser)
+  }
+  const logout = () => {
+    setCurrentUser(null);
+    setToken(null);
+    setLocalStorageToken(null);
+  }
+  console.log("currentUser=", currentUser)
+  console.log(
+    "App infoLoaded=", infoLoaded,
+    "token=", token,
+    "currentUser=", currentUser
+  )
   return (
     <Router>
       <UserContext.Provider value={{ currentUser, setCurrentUser }}>
-      <div className="App">
-        {!setInfoLoaded ? <span>Loading...</span> : null }
-        <NavbarComponent />
-        <Routes login={login} signup={signup} />
-      </div>
+        <div className="App">
+          {!setInfoLoaded ? <span>Loading...</span> : null}
+          <NavbarComponent logout={logout} />
+          <Routes login={login} signup={signup} />
+        </div>
       </UserContext.Provider>
     </Router>
   );
