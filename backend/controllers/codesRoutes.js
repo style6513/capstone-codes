@@ -36,12 +36,12 @@ router.get("/:id",  async (req, res, next) => {
 router.post("/:username",  async (req, res, next) => {
     try {
         const { name, description, price, image } = req.body;
-        const res = await db.query(
+        const results = await db.query(
             `INSERT INTO codes (created_by, name, description, price, image)
             VALUES ($1, $2, $3, $4, $5) RETURNING *`,
             [req.params.username, name, description, price, image]
         );
-        const newCode = res.rows[0];
+        const newCode = results.rows[0];
         return res.json({ code : newCode })
     } catch(e) {
         return next(e);
@@ -57,9 +57,15 @@ router.put("/:id/:username",  async (req, res, next) => {
         const { setCols, values } = sqlForPartialUpdate(data, {
             createdBy : "created_by",
         });
-        const createdByIdx = "$" + (values.length + 1);
-        const querySQL = `UPDATE codes SET ${setCols} WHERE created_by = ${createdByIdx} RETURNING *`
-        const results = await db.query(querySQL, [...values, req.params.username]);
+    
+        const idIdx = "$" + (values.length + 1);
+
+        // update codes set (name, description, price, image) set ($1, $2, $3, $4) where id = $6 req.params.id returning 
+        const querySQL = `UPDATE codes SET ${setCols} 
+        WHERE id= ${idIdx} 
+        RETURNING *`
+        
+        const results = await db.query(querySQL, [...values, req.params.id]);
         if(!results.rows.length) throw new BadRequestError();
 
         const updatedCode = results.rows[0];

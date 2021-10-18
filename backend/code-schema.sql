@@ -11,7 +11,7 @@ CREATE TABLE users (
 
 CREATE TABLE codes (
     id SERIAL PRIMARY KEY,
-    created_by username REFERENCES users(username) ON DELETE CASCADE,
+    created_by VARCHAR(25) REFERENCES users(username) ON DELETE CASCADE,
     name TEXT NOT NULL,
     description TEXT NOT NULL,
     price INT NOT NULL DEFAULT 0,
