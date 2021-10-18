@@ -10,5 +10,5 @@ App Market is allows all developers(user) to buy and sell their own apps. There 
 - User should be able to coding questions & answers in Community.
 
 # Wireframe(By handwriting)
-<img width="400" src="../readme_img/readme1.jpeg>
+<img width="400" url="./readme_img/readme1.jpeg>
 
