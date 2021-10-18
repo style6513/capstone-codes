@@ -9,7 +9,7 @@ const { authenticateJWT } = require("./middleware/auth");
 // routes imports
 const authRoutes = require("./controllers/authRoutes");
 const userRoutes = require("./controllers/userRoutes");
-
+const codeRoutes = require("./controllers/codesRoutes");
 // middlewares
 app.use(cors());
 app.use(express.json());
@@ -20,7 +20,7 @@ app.use(authenticateJWT);
 // http://localhost:9000/auth/
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
-
+app.use("/codes", codeRoutes);
 
 
 // 404 error handler

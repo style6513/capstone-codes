@@ -11,14 +11,16 @@ CREATE TABLE users (
 
 CREATE TABLE codes (
     id SERIAL PRIMARY KEY,
-    title TEXT NOT NULL,
+    created_by username REFERENCES users(username) ON DELETE CASCADE,
+    name TEXT NOT NULL,
     description TEXT NOT NULL,
     price INT NOT NULL DEFAULT 0,
-    image TEXT NOT NULL
+    image TEXT DEFAULT NULL
 );
 
 CREATE TABLE likes (
     id SERIAL PRIMARY KEY,
-    post_id INT REFERENCES posts(id) ON DELETE CASCADE
+    code_id INT REFERENCES codes(id) ON DELETE CASCADE,
+    liked_by VARCHAR(25) REFERENCES users(username) ON DELETE CASCADE
 ); 
 
