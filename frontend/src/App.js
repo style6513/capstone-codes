@@ -6,6 +6,8 @@ import UserContext from "./UserContext";
 import Routes from "./Components/Routes/Routes";
 import { BrowserRouter as Router } from "react-router-dom";
 import useLocalStorage from "./hooks/useLocalStorage";
+import NavbarComponent from "./Components/NavBar/NavBar";
+
 function App() {
   const [currentUser, setCurrentUser] = React.useState(null);
   const [infoLoaded, setInfoLoaded] = React.useState(false);
@@ -23,9 +25,10 @@ function App() {
       if(token) {
         try {
           console.log(token);
-          
+          console.log(jwt.decode(token))
           Api.token = token;
           setLocalStorageToken(token);
+          const { username } = jwt.decode(token);
           let currentUser = await Api.getUser(username);
           setCurrentUser(currentUser)
         }
@@ -67,6 +70,7 @@ function App() {
       <UserContext.Provider value={{ currentUser, setCurrentUser }}>
       <div className="App">
         {!setInfoLoaded ? <span>Loading...</span> : null }
+        <NavbarComponent />
         <Routes login={login} signup={signup} />
       </div>
       </UserContext.Provider>

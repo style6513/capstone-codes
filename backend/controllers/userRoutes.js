@@ -6,7 +6,7 @@ const User = require("../model/User");
 // GET USER by username
 // returns => { username, email }
 // Authorization required signedIn
-router.get("/:username", ensureLoggedIn, async (req, res ,next) => {
+router.get("/:username", async (req, res ,next) => {
     try {
         const { username } = req.params;
         const user = await User.get(username);

@@ -69,7 +69,10 @@ class Api {
         const res = await this.request(`codes/${id}/${username}/like`, {}, "POST"); // buttonOnclick={() => postLike(postId, currentUser.username)}
         return res.code;
     }
-    
+    static async getCodesByUsername(username) {
+        const codes = this.request(`codes/user/${username}`);
+        return codes.codes;
+    }
 }
 
 export default Api;

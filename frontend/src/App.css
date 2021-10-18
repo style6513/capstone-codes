@@ -7,6 +7,23 @@
   pointer-events: none;
 }
 
+.centerlize {
+  width: 100%;
+  height: 50vh;
+  background-image: url('./code.jpg');
+  background-size: cover;
+  color: white;
+  text-align: center;
+}
+
+.wrapper {
+  display: inline-block;
+}
+
+.centerlize p {
+  font-size: 60px;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
