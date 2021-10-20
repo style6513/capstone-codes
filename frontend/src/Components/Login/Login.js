@@ -33,7 +33,7 @@ const LoginPage = ({ login }) => {
                     <h1>Login</h1>
                 </div>
                 <div>
-                    <form onSubmit={handleSubmit}>
+                    <form className="text-center loginlabel" onSubmit={handleSubmit}>
                         <FloatingLabel
                             htmlFor="username"
                             controlId="formUsername"
