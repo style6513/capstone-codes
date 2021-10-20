@@ -3,7 +3,7 @@
 }
 
 
-.loginpage {
+.loginPage {
   padding-bottom: 21.8%;
   padding-top:10%;
   display:flex;
@@ -17,6 +17,7 @@
 .loginlabel{
   font-size: medium;
   font-weight: 700;
+  
 }
 
 

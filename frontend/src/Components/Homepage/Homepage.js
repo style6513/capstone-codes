@@ -31,7 +31,7 @@ const HomePage = props => {
             <div className="container">
                 <div className="wrapper">
                     {codes && codes.map(item =>
-                        <div className="card red" key={item.id} >
+                        <div className="card blue" key={item.id} >
                             <p><span className='span'>Name: </span>{item.name}</p>
                             <p><span className='span'>Description: </span>{item.description}</p>
                             <p><span className='span'>Price: </span>${item.price}</p>
