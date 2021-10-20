@@ -3,6 +3,18 @@
 }
 
 
+.loginpage {
+  padding-bottom: 21.8%;
+  padding-top:10%;
+  display:flex;
+  justify-content:center;
+  align-items: center;
+  align-content: center;
+  align-self: stretch;
+  width: 0 auto;
+}
+
+
 .centerlize {
   width: 100%;
   height: 50vh;
@@ -20,12 +32,6 @@
   font-size: 60px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 :root {
   --red: hsl(0, 78%, 62%);
   --cyan: hsl(180, 62%, 55%);
@@ -38,10 +44,7 @@
   --weight2: 400;
   --weight3: 600;
 }
-.App {
-  background-color: var(--veryLightGray);
-  text-align: center;
-}
+
 
 .card span{
   color: hsl(234, 12%, 34%);
