@@ -18,6 +18,13 @@ CREATE TABLE codes (
     image TEXT DEFAULT NULL
 );
 
+CREATE TABLE posts (
+    id SERIAL PRIMARY KEY,
+    created_by VARCHAR(25) REFERENCES users(username) ON DELETE CASCADE,
+    title TEXT NOT NULL,
+    content TEXT NOT NULL
+)
+
 CREATE TABLE likes (
     id SERIAL PRIMARY KEY,
     code_id INT REFERENCES codes(id) ON DELETE CASCADE,
