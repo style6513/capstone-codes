@@ -67,18 +67,10 @@ const LoginPage = ({ login }) => {
                     </form>
                 </div>
             </div>
-            {/* <form onSubmit={handleSubmit}>
-                <label htmlFor="username">Username</label>
-                <input onChange={handleChange} name="username" value={formData.username} />
-                <br />
-                <label htmlFor="password">Password</label>
-                <input onChange={handleChange} name="password" type="password" value={formData.password} />
-                <br />
-                <button>Sign in</button>
-                <p>Don't have account?</p><Link to='/register'>Register</Link>
-            </form> */}
         </div>
     )
 }
+
+
 
 export default LoginPage;

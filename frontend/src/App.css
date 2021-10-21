@@ -14,10 +14,25 @@
   width: 0 auto;
 }
 
+.registerLabel{
+  font-size: medium;
+  font-weight: 700;
+}
+
+.registerPage {
+  padding-bottom: 21.8%;
+  padding-top:10%;
+  display:flex;
+  justify-content:center;
+  align-items: center;
+  align-content: center;
+  align-self: stretch;
+  width: 0 auto;
+}
+
 .loginlabel{
   font-size: medium;
   font-weight: 700;
-  
 }
 
 
