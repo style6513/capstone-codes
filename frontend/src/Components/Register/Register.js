@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { FloatingLabel, Form } from "react-bootstrap";
+
 const RegisterPage = ({ signup }) => {
-    const [formData, setFormData] = React.useState({
+    const [formData, setFormData] = useState({
         username: "",
         email: "",
         password: ""
     });
-    const [errors, setErrors] = React.useState([]);
+
     const history = useHistory();
     const handleChange = e => {
         const { name, value } = e.target;
@@ -14,38 +16,69 @@ const RegisterPage = ({ signup }) => {
     }
     const handleSubmit = async e => {
         e.preventDefault();
-        setErrors([]);
         const res = await signup(formData);
-        if(res.success) {
+        if (res.success) {
             history.push("/codes")
         } else {
-            setErrors(res.errors);
+            console.log(e)
         }
     }
     return (
         <>
-            <h1>Register</h1>
-            <form onSubmit={handleSubmit}>
-                <input
-                    onChange={handleChange}
-                    value={formData.username}
-                    name="username"
-                    placeholder="username"
-                />
-                <input
-                    onChange={handleChange}
-                    value={formData.email}
-                    name="email"
-                    placeholder="email"
-                />
-                <input
-                    onChange={handleChange}
-                    value={formData.password}
-                    name="password"
-                    placeholder="password"
-                />
-                <button>submit</button>
-            </form>
+            <div className="registerPage">
+                <div className="registerContent">
+                    <div className="registerHtml">
+                        <h1>Register</h1>
+                    </div>
+                    <div>
+                        <form className="text-center registerLabel" onSubmit={handleSubmit}>
+                            <FloatingLabel
+                                htmlFor="username"
+                                controlId="formUsername"
+                                label="Username"
+                                className="mb-3"
+                            >
+                                <Form.Control
+                                    type="text"
+                                    id="username"
+                                    name="username"
+                                    value={formData.username}
+                                    onChange={handleChange}
+                                    placeholder="Username" />
+                            </FloatingLabel>
+                            <FloatingLabel
+                                htmlFor="email"
+                                controlId="formEmail"
+                                label="email"
+                                className="mb-3"
+                            >
+                                <Form.Control
+                                    type="text"
+                                    id="email"
+                                    name="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    placeholder="E-mail" />
+                            </FloatingLabel>
+                            <FloatingLabel
+                                htmlFor="password"
+                                controlId="floatingPassword"
+                                label="Password"
+                                className="mb-3"
+                            >
+                                <Form.Control
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    value={formData.password}
+                                    onChange={handleChange}
+                                    placeholder="Password" />
+                            </FloatingLabel>
+                            <input type="submit" value="Register" />
+                        </form>
+                    </div>
+                </div>
+            </div>
         </>
 
     )
