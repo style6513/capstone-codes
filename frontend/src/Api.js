@@ -10,7 +10,7 @@ const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:9000";
  */
 class Api {
     static token;
-    
+
     static async request(endpoint, data = {}, method = "GET") {
         console.debug("API call:", endpoint, data, method);
 
@@ -72,6 +72,32 @@ class Api {
     static async getCodesByUsername(username) {
         const codes = this.request(`codes/user/${username}`);
         return codes.codes;
+    }
+
+    // POSTS ROUTES
+    static async getAllPosts() {
+        const res = await this.request(`posts/`);
+        return res.posts;
+    }
+    static async getPostById(id) {
+        const res = await this.request(`posts/${id}`);
+        return res.post;
+    }
+    static async createPost(username, data) {
+        const res = await this.request(`posts/${username}`, data, "POST");
+        return res.post;
+    }
+    static async updatePost(username, data, id) {
+        const res = await this.request(`posts/${id}/${username}`, data, "PUT");
+        return res.post;
+    }
+    static async deletePostById(id, username) {
+        const res = await this.request(`posts/${id}/${username}`, {}, "DELETE");
+        return res.deleted;
+    }
+    static async getPostsByUsername(username) {
+        const posts = this.request(`posts/user/${username}`);
+        return posts.posts;
     }
 }
 
