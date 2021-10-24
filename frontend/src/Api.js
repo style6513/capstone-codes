@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:9000";
+const BASE_URL = process.env.REACT_APP_BASE_URL ? process.env.REACT_APP_BASE_URL : "https://codes-backend.herokuapp.com";
+console.log(BASE_URL)
 /** API Class.
  *
  * Static class tying together methods used to get/send to to the API.
