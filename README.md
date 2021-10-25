@@ -9,12 +9,12 @@ App Market is allows all developers(user) to buy and sell their own apps. There 
 - User should be able to manage(edit, delete, post) own Apps in MyPage.
 - User should be able to coding questions & answers in Community.
 
-## Wireframe(By handwriting)
+## Wireframe
 <img width="500" src="./frontend/readme_img/wireframe.png">
 
 
 ## Technologies
-POSTGRESQL || EXPRESS || NODE.JS || REACT || REACT-BOOTSTRAP
+POSTGRESQL || EXPRESS || NODE.JS || REACT || REACT-BOOTSTRAP || bcrypt || jwt || Surge || Heroku
 
 ## Installation
 Clone this repo
@@ -26,11 +26,13 @@ $npm start
 
 ## Project Goals
 - Completing Full CRUD & Auth using postgresql for the first time instead of the always used mongoose.
-- Styling Simple but neat.
+- Basic CSS, More focus on set up basic Full CRUD in 1 week during project term.
 
 ## Future Considerations
 - Creating a community where users can communicate with each other.
 - Add styling to look more professional.
+- Add SOCKET.io for live chat , following user, etc...
+- Add OAUTH(Can Login with google acc without register)
 
 ## Code Snippets
 ```
