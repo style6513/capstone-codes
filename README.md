@@ -10,11 +10,8 @@ App Market is allows all developers(user) to buy and sell their own apps. There 
 - User should be able to coding questions & answers in Community.
 
 ## Wireframe(By handwriting)
-<img width="350" src="./frontend/readme_img/readme1.jpeg">
+<img width="500" src="./frontend/readme_img/wireframe.png">
 
-<img width="350" src="./frontend/readme_img/readme2.jpeg">
-
-<img width="350" src="./frontend/readme_img/readme3.jpeg">
 
 ## Technologies
 POSTGRESQL || EXPRESS || NODE.JS || REACT || REACT-BOOTSTRAP
